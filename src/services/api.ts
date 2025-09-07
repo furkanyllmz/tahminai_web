@@ -14,9 +14,10 @@ import type {
 declare const __API_BASE_URL__: string;
 
 const api = axios.create({
-  baseURL: __API_BASE_URL__,
-  withCredentials: true, // cookie tabanlı login/logout için gerekli
+  baseURL: "https://tahminai.com/api",
+  withCredentials: true,
 });
+
 
 // ✅ Response interceptor (401 için)
 api.interceptors.response.use(
