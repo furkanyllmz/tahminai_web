@@ -14,7 +14,7 @@ import type {
 declare const __API_BASE_URL__: string;
 
 const api = axios.create({
-  baseURL: "https://tahminai.com/api",
+  baseURL: "https://api.tahminai.com/api",
   withCredentials: true,
 });
 
