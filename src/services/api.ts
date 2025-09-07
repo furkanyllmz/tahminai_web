@@ -13,15 +13,22 @@ import type {
 
 declare const __API_BASE_URL__: string;
 
-const API_BASE_URL = typeof __API_BASE_URL__ !== 'undefined' ? __API_BASE_URL__ : "http://45.87.120.218:8080";
-
 const api = axios.create({
-  baseURL: API_BASE_URL,
-  timeout: 10000,
-  headers: {
-    'Content-Type': 'application/json',
-  },
+  baseURL: __API_BASE_URL__,
+  withCredentials: true, // cookie tabanlı login/logout için gerekli
 });
+
+// ✅ Response interceptor (401 için)
+api.interceptors.response.use(
+  (response) => response,
+  (error) => {
+    if (error.response?.status === 401) {
+      console.warn("⛔ Yetkisiz! Login sayfasına yönlendiriliyor...");
+      window.location.href = "/login";
+    }
+    return Promise.reject(error);
+  }
+);
 
 //
 // ==============================
@@ -176,8 +183,8 @@ export const getLeagues = async (): Promise<League[]> => {
     const response = await api.get<League[]>("/leagues");
     return response.data;
   } catch (error) {
-    console.error("Error fetching leagues:", error);
-    return [];
+    console.error("Error fetching leagues, using mock data:", error);
+    return mockLeagues;
   }
 };
 
@@ -227,13 +234,13 @@ export const getActiveMatches = async (): Promise<Match[]> => {
 
     if (!Array.isArray(response.data)) {
       console.warn("Unexpected API format:", response.data);
-      return [];
+      return mockMatches;
     }
 
     return response.data;
   } catch (error) {
-    console.error("Error fetching active matches:", error);
-    return [];
+    console.error("Error fetching active matches, using mock data:", error);
+    return mockMatches;
   }
 };
 
