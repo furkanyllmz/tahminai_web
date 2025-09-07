@@ -11,11 +11,16 @@ import type {
   TeamStanding
 } from "../models/types";
 
-const API_BASE_URL = "/api";
+declare const __API_BASE_URL__: string;
+
+const API_BASE_URL = typeof __API_BASE_URL__ !== 'undefined' ? __API_BASE_URL__ : "http://45.87.120.218:8080";
 
 const api = axios.create({
   baseURL: API_BASE_URL,
   timeout: 10000,
+  headers: {
+    'Content-Type': 'application/json',
+  },
 });
 
 //
