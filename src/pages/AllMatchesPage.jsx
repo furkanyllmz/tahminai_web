@@ -40,7 +40,7 @@ const AllMatchesPage = () => {
           <div className="absolute -bottom-2 left-1/2 transform -translate-x-1/2 w-24 h-1 bg-gradient-to-r from-blue-600 to-purple-600 rounded-full"></div>
         </div>
         <p className="text-sm opacity-70 mt-4" style={{ color: colors.textSecondary }}>
-          Tarihe göre maçları keşfedin
+          Tarihe göre maçları keşfedin !
         </p>
       </div>
 
